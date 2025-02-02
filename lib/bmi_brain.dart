@@ -9,7 +9,7 @@ class BmiBrain {
     required this.weight,
   });
 
-//calcularBMI
+  //calcularBMI
 
   double calculateBMI() {
     double bmi = weight / pow((height / 100), 2);
@@ -28,7 +28,6 @@ class BmiBrain {
     } else {
       result = "Sobrepeso";
     }
-
     return result;
   }
 }

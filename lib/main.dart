@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter_codigo_bmi/bmi_brain.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -18,10 +20,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double valueHeight = 160;
-  double valueWeight = 50;
-  double bmi = 0;
-  String result = " ";
+  BmiBrain mandarinaBrain = BmiBrain(height: 182, weight: 76);
+
+  double valueHeight = 182;
+  double valueWeight = 76;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +87,7 @@ class _HomePageState extends State<HomePage> {
               label: valueHeight.toStringAsFixed(0),
               onChanged: (double mandarina) {
                 valueHeight = mandarina;
+                // mandarinaBrain.height = valueHeight;
                 setState(() {});
               },
             ),
@@ -128,6 +131,7 @@ class _HomePageState extends State<HomePage> {
               label: valueWeight.toStringAsFixed(2),
               onChanged: (double mandarina) {
                 valueWeight = mandarina;
+                // mandarinaBrain.weight = valueWeight;
                 setState(() {});
               },
             ),
@@ -137,14 +141,8 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.symmetric(horizontal: 16),
               child: ElevatedButton(
                 onPressed: () {
-                  bmi = valueWeight / pow((valueHeight / 100), 2);
-                  if (bmi > 25) {
-                    result = "Sobrepeso";
-                  } else if (bmi > 18.5) {
-                    result = "Peso normal";
-                  } else {
-                    result = "Peso bajo";
-                  }
+                  mandarinaBrain.height = valueHeight;
+                  mandarinaBrain.weight = valueWeight;
                   setState(() {});
                 },
                 child: const Text(
@@ -152,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Expanded(
@@ -178,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                       height: 4,
                     ),
                     Text(
-                      result,
+                      mandarinaBrain.getResult(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -188,7 +186,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      bmi.toStringAsFixed(1),
+                      mandarinaBrain.calculateBMI().toStringAsFixed(1),
+                      // bmi.toStringAsFixed(1),
                       style: const TextStyle(
                         fontSize: 60,
                         fontWeight: FontWeight.bold,
@@ -199,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
           ],
