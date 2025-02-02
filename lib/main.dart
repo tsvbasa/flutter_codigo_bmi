@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   double valueHeight = 160;
   double valueWeight = 50;
   double bmi = 0;
+  String result = " ";
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +138,13 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   bmi = valueWeight / pow((valueHeight / 100), 2);
+                  if (bmi > 25) {
+                    result = "Sobrepeso";
+                  } else if (bmi > 18.5) {
+                    result = "Peso normal";
+                  } else {
+                    result = "Peso bajo";
+                  }
                   setState(() {});
                 },
                 child: const Text(
@@ -149,20 +157,39 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: Card(
+                elevation: 12,
                 color: Colors.white,
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      width: double.infinity,
+                    ),
                     Text(
-                      "Result",
+                      "Result:",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
                         fontFamily: 'Poppins-Regular',
                       ),
                     ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      result,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Poppins-Regular',
+                        color: Colors.pinkAccent,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Text(
                       bmi.toStringAsFixed(1),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 60,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins-Regular',
@@ -171,6 +198,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              height: 16,
             ),
           ],
         ),
